@@ -1,4 +1,3 @@
-// 定义一个结构体来表示分数
 struct Fraction {
     p: i32, // 分子
     q: i32, // 分母
@@ -14,13 +13,17 @@ impl Fraction {
         }
     }
 
-    // 计算最大公约数 (GCD) 的方法
-    fn gcd(a: i32, b: i32) -> i32 {
-        if b == 0 {
-            a
-        } else {
-            Fraction::gcd(b, a % b)
+    // 计算最大公约数 (GCD) 的方法，确保 a >= b
+    fn gcd(mut a: i32, mut b: i32) -> i32 {
+        if b > a {
+            std::mem::swap(&mut a, &mut b);
         }
+        while b != 0 {
+            let remainder = a % b;
+            a = b;
+            b = remainder;
+        }
+        a
     }
 
     // 约分函数，直接修改分数到最简形式
